@@ -5,6 +5,7 @@ import io.github.techno_brony.infiniteduel.commands.InfiniteDuelCommand;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,9 +19,13 @@ import java.util.logging.Level;
 public class Main extends JavaPlugin {
 
     public ArrayList<Arena> arenas = new ArrayList<>();
-    public HashMap<UUID, String> queue = new HashMap<>();
+    public HashMap<UUID, ArrayList<String>> queue = new HashMap<>();
     public ArrayList<UUID> inFightAutoDuel = new ArrayList<>();
     public HashMap<String, Kit> kits = new HashMap<>();
+    public HashMap<UUID, PreFightState> preFightState = new HashMap<>();
+    public HashMap<UUID, UUID> currentFights = new HashMap<>();
+    public ArrayList<UUID> lookingForArena = new ArrayList<>();
+    public HashMap<UUID, Arena> playerInArena = new HashMap<>();
 
     public HashMap<UUID, DuelSettingsSelector> settings = new HashMap<>();
     public EventListener listener;
