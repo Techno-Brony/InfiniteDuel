@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Debug Plugin" type="JarApplication" factoryName="JAR Application">
+    <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+    <option name="JAR_PATH" value="$PROJECT_DIR$/../Spigot Test Server/spigot-1.8.8.jar" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../Spigot Test Server" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <envs />
+    <method>
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="Create Jar" run_configuration_type="MavenRunConfiguration" />
+    </method>
+  </configuration>
+</component>

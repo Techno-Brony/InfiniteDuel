@@ -1,0 +1,12 @@
+main: io.github.techno_brony.infiniteduel.Main
+name: InfiniteDuel
+version: 1.0
+author: TechnoBrony
+description: Duel Infinitely
+commands:
+   duel:
+      description: Launch duel GUI.
+      usage: /<command>
+   infiniteduel:
+      description: InfiniteDuel Main Command.
+      usage: /<command>

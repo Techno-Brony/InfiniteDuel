@@ -1,0 +1,14 @@
+arenas:
+  testArena:
+    world: world
+    name: TechnosArena
+    author: TechnoBrony
+    spawnLocations:
+      - 0 0 0
+      - 0 255 0
+kits:
+  testKit:
+    name: TechnosKit
+    items:
+      - STONE 64
+      - DIAMOND_SWORD 1
