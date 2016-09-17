@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.UUID;
 
 public class DuelSettingsSelector {
 
@@ -18,6 +19,7 @@ public class DuelSettingsSelector {
     private Inventory duelSettingsInventory = Bukkit.createInventory(null, 54, "Configure your Duel");
     public ArrayList<Kit> kitsWanted = new ArrayList<>();
     public boolean autoDuel = false;
+    private UUID playerUUID;
 
     public DuelSettingsSelector(Main plugin) {
         this.plugin = plugin;
@@ -38,22 +40,26 @@ public class DuelSettingsSelector {
                 }
 
                 if (it.hasNext()) {
-                    Map.Entry pair = (Map.Entry) it.next();
-                    Kit tempKit = (Kit) pair.getValue();
-                    ItemStack itemStack = new ItemStack(tempKit.getItems().get(0));
-                    ItemMeta tempMeta = itemStack.getItemMeta();
-                    for (Map.Entry enchantment : itemStack.getEnchantments().entrySet()) {
-                        itemStack.removeEnchantment((Enchantment) enchantment.getKey());
+                    if (plugin.queue.containsKey(playerUUID)) {
+
+                    } else {
+                        Map.Entry pair = (Map.Entry) it.next();
+                        Kit tempKit = (Kit) pair.getValue();
+                        ItemStack itemStack = new ItemStack(tempKit.getItems().get(0));
+                        ItemMeta tempMeta = itemStack.getItemMeta();
+                        for (Map.Entry enchantment : itemStack.getEnchantments().entrySet()) {
+                            itemStack.removeEnchantment((Enchantment) enchantment.getKey());
+                        }
+                        tempMeta.setDisplayName(tempKit.getName());
+                        if (kitsWanted.contains(tempKit)) {
+                            tempMeta.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
+                            ArrayList<String> lore = new ArrayList<>();
+                            lore.add("Enabled");
+                            tempMeta.setLore(lore);
+                        }
+                        itemStack.setItemMeta(tempMeta);
+                        duelSettingsInventory.setItem(y * 9 + x, itemStack);
                     }
-                    tempMeta.setDisplayName(tempKit.getName());
-                    if (kitsWanted.contains(tempKit)) {
-                        tempMeta.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
-                        ArrayList<String> lore = new ArrayList<>();
-                        lore.add("Enabled");
-                        tempMeta.setLore(lore);
-                    }
-                    itemStack.setItemMeta(tempMeta);
-                    duelSettingsInventory.setItem(y * 9 + x, itemStack);
                 }
             }
         }
@@ -69,14 +75,26 @@ public class DuelSettingsSelector {
             noBeginItem.setItemMeta(noBeginItemMeta);
             duelSettingsInventory.setItem(43, noBeginItem);
         } else {
-            ItemStack beginItem = new ItemStack(Material.DIAMOND_SWORD);
-            ItemMeta beginItemMeta = beginItem.getItemMeta();
-            beginItemMeta.setDisplayName("Begin!");
-            ArrayList<String> beginItemLore = new ArrayList<>();
-            beginItemLore.add("When you are ready, click me!");
-            beginItemMeta.setLore(beginItemLore);
-            beginItem.setItemMeta(beginItemMeta);
-            duelSettingsInventory.setItem(43, beginItem);
+            if (plugin.queue.containsKey(playerUUID)) {
+                ItemStack beginItem = new ItemStack(Material.REDSTONE);
+                ItemMeta beginItemMeta = beginItem.getItemMeta();
+                beginItemMeta.setDisplayName("Waiting in queue...");
+                ArrayList<String> beginItemLore = new ArrayList<>();
+                beginItemLore.add("Your match will start");
+                beginItemLore.add("when a player is found");
+                beginItemMeta.setLore(beginItemLore);
+                beginItem.setItemMeta(beginItemMeta);
+                duelSettingsInventory.setItem(43, beginItem);
+            } else {
+                ItemStack beginItem = new ItemStack(Material.DIAMOND_SWORD);
+                ItemMeta beginItemMeta = beginItem.getItemMeta();
+                beginItemMeta.setDisplayName("Begin!");
+                ArrayList<String> beginItemLore = new ArrayList<>();
+                beginItemLore.add("When you are ready, click me!");
+                beginItemMeta.setLore(beginItemLore);
+                beginItem.setItemMeta(beginItemMeta);
+                duelSettingsInventory.setItem(43, beginItem);
+            }
         }
 
         ItemStack autoDuelItem;
@@ -146,6 +164,7 @@ public class DuelSettingsSelector {
     }
 
     public void selectDuel(Player player) {
+        playerUUID = player.getUniqueId();
         player.openInventory(this.duelSettingsInventory);
     }
 
