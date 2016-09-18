@@ -1,4 +1,4 @@
-package io.github.techno_brony.infiniteduel;
+package io.github.techno_brony.deprecated.infiniteduel;
 
 import org.bukkit.Location;
 import org.bukkit.World;

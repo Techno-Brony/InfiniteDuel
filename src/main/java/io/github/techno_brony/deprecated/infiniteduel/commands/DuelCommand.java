@@ -1,6 +1,6 @@
-package io.github.techno_brony.infiniteduel.commands;
+package io.github.techno_brony.deprecated.infiniteduel.commands;
 
-import io.github.techno_brony.infiniteduel.Main;
+import io.github.techno_brony.deprecated.infiniteduel.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

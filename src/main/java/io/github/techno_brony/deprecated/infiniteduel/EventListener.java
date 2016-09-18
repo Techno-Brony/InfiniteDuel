@@ -1,4 +1,4 @@
-package io.github.techno_brony.infiniteduel;
+package io.github.techno_brony.deprecated.infiniteduel;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -33,8 +33,6 @@ public class EventListener implements Listener {
         Player p = event.getPlayer();
         cleanUpFight(p);
         if (plugin.inFightAutoDuel.contains(p.getUniqueId())) {
-            plugin.preFightState.get(p.getUniqueId()).updateFromState(p);
-            plugin.preFightState.remove(p.getUniqueId());
             plugin.inFightAutoDuel.remove(p.getUniqueId());
         }
         if (plugin.queue.containsKey(p.getUniqueId())) {
@@ -48,6 +46,7 @@ public class EventListener implements Listener {
         final Player p = event.getEntity().getPlayer();
         cleanUpFight(p);
         if (plugin.inFightAutoDuel.contains(p.getUniqueId())) {
+            plugin.getLogger().log(Level.INFO, event.getEntity().getPlayer().getDisplayName()); //TODO REMOVE
             plugin.settings.get(p.getUniqueId()).autoDuel = true;
             checkForFight(event.getEntity().getPlayer());
             new BukkitRunnable() {
@@ -136,6 +135,7 @@ public class EventListener implements Listener {
         if (playersWithSelectorOpen.contains(event.getPlayer().getUniqueId())) {
             playersWithSelectorOpen.remove(event.getPlayer().getUniqueId());
             plugin.settings.get(event.getPlayer().getUniqueId()).autoDuel = false;
+            plugin.getLogger().log(Level.INFO, event.getPlayer().getName() + " inventory close open delete duel"); //TODO REMOVE
         }
     }
 
@@ -157,6 +157,10 @@ public class EventListener implements Listener {
                         for (Arena arena : plugin.arenas) {
                             if (!arena.isInUse()) {
                                 plugin.lookingForArena.remove(player.getUniqueId());
+                                if (plugin.settings.get(player.getUniqueId()).autoDuel) {
+                                    plugin.inFightAutoDuel.add(player.getUniqueId());
+                                    plugin.getLogger().log(Level.INFO, player.getDisplayName() + " in loop"); //TODO REMOVE
+                                }
                                 startFight(player, plugin.getServer().getPlayer((UUID) tempEntry.getKey()),
                                         plugin.kits.get(s), arena);
                                 return;
