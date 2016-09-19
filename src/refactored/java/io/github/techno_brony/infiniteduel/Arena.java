@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 
 public class Arena {
     private HashMap<Location, Boolean> spawnLocations = new HashMap<>();
@@ -49,6 +50,23 @@ public class Arena {
         while (it.hasNext()) {
             boolean arenaInUse = (Boolean) ((Map.Entry) it.next()).getValue();
             if (!arenaInUse) return (Arena) ((Map.Entry) it.next()).getKey();
+        }
+        return null;
+    }
+
+    /**
+     * Gets any arena
+     * @return An arena that may or may not be used
+     */
+    public static Arena getAnyArena() {
+        int size = arenas.size();
+        int item = new Random().nextInt(size);
+        int i = 0;
+        for (String s : arenas.keySet()) {
+            if (i == item) {
+                return arenas.get(s);
+            }
+            i = i + 1;
         }
         return null;
     }
