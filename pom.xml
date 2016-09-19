@@ -9,11 +9,11 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
+        <sourceDirectory>src/refactored/java</sourceDirectory>
         <defaultGoal>clean install</defaultGoal>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>src/refactored/resources</directory>
                 <!-- Keeping filtering at true here reduces plugin.yml redundancy! -->
                 <filtering>true</filtering>
                 <includes>
@@ -21,7 +21,7 @@
                 </includes>
             </resource>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>src/refactored/resources</directory>
                 <!-- Keep filtering at false for other resources to prevent bad magic -->
                 <filtering>false</filtering>
                 <excludes>

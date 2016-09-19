@@ -1,6 +1,5 @@
 package io.github.techno_brony.infiniteduel;
 
-import com.sun.istack.internal.Nullable;
 import org.bukkit.Location;
 
 import java.util.HashMap;
@@ -14,7 +13,7 @@ public class Arena {
     private String name = "";
     private boolean isInUse;
 
-    private static HashMap<String, Arena> arenas;
+    private static HashMap<String, Arena> arenas = new HashMap<>();
 
     public Arena(String author, String name) {
         this.author = author;
@@ -30,7 +29,6 @@ public class Arena {
      * @param willBeUsed If true the location returned will be marked as in use
      * @return A location or null if there isnt a location available
      */
-    @Nullable
     public Location getUnusedSpawnLocation(boolean willBeUsed) {
         Iterator it = spawnLocations.entrySet().iterator();
         while (it.hasNext()) {
@@ -46,7 +44,6 @@ public class Arena {
      * @return An arena or null if there isnt an arena available
      * @see Arena#arenas
      */
-    @Nullable
     public static Arena getUnusedArena(boolean willBeUsed) {
         Iterator it = arenas.entrySet().iterator();
         while (it.hasNext()) {

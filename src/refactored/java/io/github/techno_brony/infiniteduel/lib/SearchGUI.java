@@ -202,7 +202,7 @@ public class SearchGUI {
         int c = p.nextContainerCounter();
 
         //Send the packet
-        p.playerConnection.sendPacket(new PacketPlayOutOpenWindow(c, "minecraft:anvil", new ChatMessage("Repairing"), 0));
+        p.playerConnection.sendPacket(new PacketPlayOutOpenWindow(c, "minecraft:anvil", new ChatMessage("Enter a player name"), 0));
         //Set their active container to the container
         p.activeContainer = container;
 

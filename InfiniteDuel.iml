@@ -10,6 +10,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/refactored/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/refactored/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

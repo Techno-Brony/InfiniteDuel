@@ -24,7 +24,7 @@ public class DuelCommand implements CommandExecutor {
         } else {
             commandSender.sendMessage(ChatColor.RED + "This command can only be run by a player!");
         }
-        return false;
+        return true;
     }
 
     public static String getCommandName() {

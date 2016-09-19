@@ -1,18 +1,16 @@
 package io.github.techno_brony.infiniteduel;
 
-import com.sun.istack.internal.Nullable;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public class DuelSettings {
     private final Main plugin;
 
-    private boolean autoDuelEnabled = false;
+    private QueueType queueType = QueueType.NOT_IN_QUEUE;
+    private UUID playerToDuel = null;
 
-    private ArrayList<Kit> kitsWanted = new ArrayList<>();
+    private Set<Kit> kitsWanted = new HashSet<>();
     private UUID player;
 
     private static HashMap<UUID, DuelSettings> duelSettings = new HashMap<>();
@@ -22,17 +20,15 @@ public class DuelSettings {
         this.player = player;
     }
 
-    @Nullable
-    public static DuelSettings getDuelSetting(Player p) {
+    public static DuelSettings getDuelSetting(Player p, Main plugin) {
+        if (!duelSettings.containsKey(p.getUniqueId())) {
+            duelSettings.put(p.getUniqueId(), new DuelSettings(plugin, p.getUniqueId()));
+        }
         return duelSettings.get(p.getUniqueId());
     }
 
-    public boolean getAutoduelEnabled() {
-        return autoDuelEnabled;
-    }
-
-    public void setAutoduelEnabled(boolean autoduelEnabled) {
-        this.autoDuelEnabled = autoduelEnabled;
+    public QueueType getQueueType() {
+        return queueType;
     }
 
     public boolean wantsKit(Kit kit) {
@@ -44,8 +40,41 @@ public class DuelSettings {
     }
 
     public void addWantedKit(Kit kit) {
-        if (!kitsWanted.contains(kit)) {
-            kitsWanted.add(kit);
-        }
+        kitsWanted.add(kit);
     }
+
+    public void disableAutoduel() {
+        //TODO
+    }
+
+    public void enableAutoduel() {
+        //TODO
+    }
+
+    public void beginManualDuel() {
+        //TODO
+    }
+
+    public void cancelManualDuel() {
+        //TODO
+    }
+
+    public UUID getPlayerToDuel() {
+        return playerToDuel;
+    }
+
+    public void setPlayerToDuel(UUID playerToDuel) {
+        this.playerToDuel = playerToDuel;
+    }
+
+    public static void destroyDuelSetting(Player p) {
+        duelSettings.remove(p.getUniqueId());
+    }
+
+}
+
+enum QueueType {
+    AUTO_DUEL_ENABLED,
+    NOT_IN_QUEUE,
+    MANUAL_DUEL_STARTED
 }

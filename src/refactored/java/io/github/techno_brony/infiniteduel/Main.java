@@ -20,6 +20,7 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         createAndLoadConfig();
         parseConfigs();
+        registerListeners();
         registerCommands();
     }
 
@@ -48,6 +49,10 @@ public class Main extends JavaPlugin {
     private void parseConfigs() {
         parseArenaConfig();
         parseKitConfig();
+    }
+
+    private void registerListeners() {
+        getServer().getPluginManager().registerEvents(new EventListener(), this);
     }
 
     private void parseArenaConfig() {

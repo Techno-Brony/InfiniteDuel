@@ -111,7 +111,7 @@ public class IconMenu implements Listener {
             this.player = player;
             this.position = position;
             this.name = name;
-            this.close = true;
+            this.close = false;
             this.destroy = false;
             this.item = item;
         }
